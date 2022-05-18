@@ -2,8 +2,6 @@ console.log('Tu peux le faire !!!');
 
 var idProject = "";
 
-
-
 var displayDatas = () => {
 
     ProjectVueAll.innerHTML = ``;
@@ -19,8 +17,7 @@ var displayDatas = () => {
 
         ProjectVueAll.innerHTML += `
             <div class="row listProjectVue">
-                <div class="col-1">${idProject}</div>
-                <div class="col-2">${element.nameProject}</div>
+                <div class="col-3">${element.nameProject}</div>
                 <div class="col-8">${element.hrefProject}</div>
                 <div class="col-1">
                         <img data-id="${idProject}" class="delete" src="public/assets/img/delete.png">
@@ -44,11 +41,6 @@ if (listProjects == null) {
     displayDatas();
 }
 
-
-
-
-
-
 let saveData = () => {
 
     let nameProject = document.getElementById('nameProject').value;
@@ -64,29 +56,22 @@ let saveData = () => {
         listProjects.push(infoProject);
         localStorage.setItem("projects", JSON.stringify(listProjects));
 
-        document.getElementById('nameProject').value= "";
-        document.getElementById('hrefProject').value= "";
+        document.getElementById('nameProject').value = "";
+        document.getElementById('hrefProject').value = "";
         displayDatas();
     }
 
 }
 
-
 let deleteData = (event) => {
-    // console.log(event.target,'AAA');
-    // alert(event.target.classList);
     let target = event.target;
     if (target.classList == 'delete') {
         let projectID = target.dataset.id;
-
         listProjects.splice(projectID, 1);
-
         localStorage.setItem("projects", JSON.stringify(listProjects));
         target.closest('.row').remove();
-
     }
 }
-
 
 let deleteAll = () => {
     localStorage.clear();
@@ -95,7 +80,6 @@ let deleteAll = () => {
 }
 
 btnDeleteParents = document.getElementById('ProjectVueAll');
-
 
 btnValid.addEventListener('click', saveData);
 
