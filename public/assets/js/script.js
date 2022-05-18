@@ -12,11 +12,11 @@ if (listProjects == null) {
     console.log('Tableau existant');
 
 
-    var displayDatas = () => {
+    const displayDatas = () => {
 
         ProjectVueAll.innerHTML = ``;
 
-        var listProjects = JSON.parse(localStorage.getItem('projects'));
+        listProjects = JSON.parse(localStorage.getItem('projects'));
         // console.log(listProjects);
         listProjects.forEach(element => {
 
@@ -28,8 +28,8 @@ if (listProjects == null) {
             ProjectVueAll.innerHTML += `
                 <div class="row listProjectVue">
                     <div class="col-1">${idProject}</div>
-                    <div class="col-4">${element.nameProject}</div>
-                    <div class="col-6">${element.hrefProject}</div>
+                    <div class="col-2">${element.nameProject}</div>
+                    <div class="col-8">${element.hrefProject}</div>
                     <div class="col-1">
                             <img data-id="${idProject}" class="delete" src="public/assets/img/delete.png">
                         
@@ -42,6 +42,9 @@ if (listProjects == null) {
     displayDatas();
 
 }
+
+
+
 
 let saveData = () => {
 
@@ -57,8 +60,8 @@ let saveData = () => {
         }
         listProjects.push(infoProject);
         localStorage.setItem("projects", JSON.stringify(listProjects));
-        target.closest('.row').add();
 
+        displayDatas();
     }
 
 }
@@ -76,12 +79,14 @@ let deleteData = (event) => {
         localStorage.setItem("projects", JSON.stringify(listProjects));
         target.closest('.row').remove();
 
+        displayDatas();
     }
 }
 
 
 let deleteAll = () => {
     localStorage.clear();
+    displayDatas();
 }
 
 btnDeleteParents = document.getElementById('ProjectVueAll');
