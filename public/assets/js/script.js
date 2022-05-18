@@ -1,47 +1,50 @@
 console.log('Tu peux le faire !!!');
 
+var idProject = "";
+
+
+
+var displayDatas = () => {
+
+    ProjectVueAll.innerHTML = ``;
+
+    var listProjects = JSON.parse(localStorage.getItem('projects'));
+    // console.log(listProjects);
+    listProjects.forEach(element => {
+
+        idProject = listProjects.indexOf(element);
+
+        // console.log(idProject);
+        // console.log(element.nameProject);
+
+        ProjectVueAll.innerHTML += `
+            <div class="row listProjectVue">
+                <div class="col-1">${idProject}</div>
+                <div class="col-2">${element.nameProject}</div>
+                <div class="col-8">${element.hrefProject}</div>
+                <div class="col-1">
+                        <img data-id="${idProject}" class="delete" src="public/assets/img/delete.png">
+                    
+                </div>
+            </div>`;
+    });
+
+}
 
 var listProjects = JSON.parse(localStorage.getItem('projects'));
 console.log(listProjects);
 if (listProjects == null) {
-    var listProjects = [];
+    listProjects = [];
     console.log('Initialisation du tableau');
 } else {
 
     listProjects = listProjects;
     console.log('Tableau existant');
 
-
-    const displayDatas = () => {
-
-        ProjectVueAll.innerHTML = ``;
-
-        listProjects = JSON.parse(localStorage.getItem('projects'));
-        // console.log(listProjects);
-        listProjects.forEach(element => {
-
-            var idProject = listProjects.indexOf(element);
-
-            // console.log(idProject);
-            // console.log(element.nameProject);
-
-            ProjectVueAll.innerHTML += `
-                <div class="row listProjectVue">
-                    <div class="col-1">${idProject}</div>
-                    <div class="col-2">${element.nameProject}</div>
-                    <div class="col-8">${element.hrefProject}</div>
-                    <div class="col-1">
-                            <img data-id="${idProject}" class="delete" src="public/assets/img/delete.png">
-                        
-                    </div>
-                </div>`;
-        });
-
-    }
-
     displayDatas();
-
 }
+
+
 
 
 
@@ -61,6 +64,8 @@ let saveData = () => {
         listProjects.push(infoProject);
         localStorage.setItem("projects", JSON.stringify(listProjects));
 
+        document.getElementById('nameProject').value= "";
+        document.getElementById('hrefProject').value= "";
         displayDatas();
     }
 
@@ -79,7 +84,6 @@ let deleteData = (event) => {
         localStorage.setItem("projects", JSON.stringify(listProjects));
         target.closest('.row').remove();
 
-        displayDatas();
     }
 }
 
@@ -87,6 +91,7 @@ let deleteData = (event) => {
 let deleteAll = () => {
     localStorage.clear();
     displayDatas();
+    listProjects = [];
 }
 
 btnDeleteParents = document.getElementById('ProjectVueAll');
